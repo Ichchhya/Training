@@ -51,8 +51,8 @@
                     <td>{{$course->en_name}}</td>
                     <td>{{$course->status == 1 ? 'Active' : 'Inactive'}}</td>
                     <td>{{$course->views}}</td>
-                    <td>{{$course->category_id}}</td>
-                    <td>{{$course->user_id}}</td>
+                    <td>{{$course->category->en_name}}</td>
+                    <td>{{$course->user->en_name}}</td>
                     <td>{{$course->description}}</td>
                     <td>
                       <a href="{{route('admin.courses.edit',$course->id)}}">

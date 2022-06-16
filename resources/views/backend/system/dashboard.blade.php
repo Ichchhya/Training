@@ -59,7 +59,8 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+              @php $users_count = App\Models\User::count(); @endphp
+                <h3>{{$users_count}}</h3>
 
                 <p>User Registrations</p>
               </div>
