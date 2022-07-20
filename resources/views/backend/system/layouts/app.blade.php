@@ -76,5 +76,31 @@
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDdYmnaD-evdjsUVXAEd_f2DIUE9ts00Y8",
+    authDomain: "train-yourself-17ce0.firebaseapp.com",
+    projectId: "train-yourself-17ce0",
+    storageBucket: "train-yourself-17ce0.appspot.com",
+    messagingSenderId: "143314527948",
+    appId: "1:143314527948:web:63b299ee6f6ea419f88469",
+    measurementId: "G-D7ERY898BN"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+</script>
 </body>
 </html>

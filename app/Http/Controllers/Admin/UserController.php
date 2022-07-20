@@ -134,4 +134,18 @@ class UserController extends Controller
         $user->delete();
         return redirect()->back()->with('message','User deleted successfully!');
     }
+
+    public function updateToken(Request $request){
+        try{
+            $request->user()->update(['device_token'=>$request->token]);
+            return response()->json([
+                'success'=>true
+            ]);
+        }catch(\Exception $e){
+            report($e);
+            return response()->json([
+                'success'=>false
+            ],500);
+        }
+    }
 }
