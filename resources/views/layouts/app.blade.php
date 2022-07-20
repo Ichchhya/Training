@@ -107,6 +107,34 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+
+
+  const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging.requestPermission().then(function () {
+            return messaging.getToken()
+        }).then(function(token) {
+            
+            axios.post("{{ route('fcmToken') }}",{
+                _method:"PATCH",
+                token
+            }).then(({data})=>{
+                console.log(data)
+            }).catch(({response:{data}})=>{
+                console.error(data)
+            })
+
+        }).catch(function (err) {
+            console.log(`Token Error :: ${err}`);
+        });
+    }
+
+    initFirebaseMessagingRegistration();
+  
+    messaging.onMessage(function({data:{body,title}}){
+        new Notification(title, {body});
+    });
 </script>
 
 </body>

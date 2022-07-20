@@ -51,6 +51,9 @@ Route::controller(CategoryController::class)->prefix('admin/categories')->name('
     Route::get('/delete/{id}','destroy')->name('destroy');
 });
 
+Route::patch('/fcm-token', [UserController::class, 'updateToken'])->name('fcmToken');
+Route::post('/send-notification',[UserController::class,'notification'])->name('notification');
+
 Route::get('/', function () {
     return view('backend.system.layouts.app');
 });

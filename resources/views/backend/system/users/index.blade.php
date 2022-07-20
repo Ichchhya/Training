@@ -16,8 +16,14 @@
             </ol>
           </div>
         </div>
+        <button class="btn btn-primary mb-3">
+              Allow Notification
+        </button>
         <div class="col-sm-3">
-          <a href="{{route('admin.users.create')}}" class="btn btn-block btn-success">New User</a>
+          <a href="{{route('admin.users.create')}}" class="btn  btn-success">New User</a>
+          </div>
+          <div>
+            
           </div>
       </div><!-- /.container-fluid -->
     </section>
