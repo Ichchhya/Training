@@ -16,7 +16,7 @@
             </ol>
           </div>
         </div>
-        <button class="btn btn-primary mb-3">
+        <button onclick="storeToken()" class="btn btn-primary mb-3">
               Allow Notification
         </button>
         <div class="col-sm-3">
@@ -87,4 +87,53 @@
     </section>
     <!-- /.content -->
   </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+  <script>
+
+var firebaseConfig = {
+  apiKey: "AIzaSyDdYmnaD-evdjsUVXAEd_f2DIUE9ts00Y8",
+  authDomain: "train-yourself-17ce0.firebaseapp.com",
+  projectId: "train-yourself-17ce0",
+  storageBucket: "train-yourself-17ce0.appspot.com",
+  messagingSenderId: "143314527948",
+  appId: "1:143314527948:web:63b299ee6f6ea419f88469",
+  measurementId: "G-D7ERY898BN"
+  };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    function storeToken(){
+      messaging.requestPermission()
+      .then(function(){
+        return messaging.getToken()
+      })
+      .then(function(token){
+        $.ajaxSetup({
+          headers : {
+            'X-CSRF-TOKEN' : $('meta[name = "csrf-token"]').attr('content')
+          }
+        });
+        $.ajax({
+          'url' : '{{route("fcmToken")}}',
+          'type' : 'POST',
+          'data' : {
+            token : token
+          },
+          dataType : 'JSON',
+          success : function(){
+
+            alert('Token Stored');
+          },
+          error : function(error){
+
+            alert(error);
+          },
+        });
+      }).catch(function(){
+
+          alert(error);
+        });
+    }
+  </script>
 @endsection

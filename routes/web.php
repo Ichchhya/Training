@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => ['auth']], function() {
+
 Route::controller(UserController::class)->prefix('admin/users')->name('admin.users.')->group(function() {
     // Route::resource('/');
     Route::get('/','index')->name('index');
@@ -35,7 +37,7 @@ Route::controller(CourseController::class)->prefix('admin/courses')->name('admin
     Route::put('/update/{id}','update')->name('update');
     Route::get('/delete/{id}','destroy')->name('destroy');
 });
-Route::group(['middleware' => ['auth']], function() {
+
 Route::controller(TrainingCenterController::class)->prefix('admin/training-centers')->name('admin.training-centers.')->group(function() {
     Route::get('/','index')->name('index');
     Route::get('/create','create')->name('create');
@@ -52,7 +54,7 @@ Route::controller(CategoryController::class)->prefix('admin/categories')->name('
 });
 
 Route::patch('/fcm-token', [UserController::class, 'updateToken'])->name('fcmToken');
-Route::post('/send-notification',[UserController::class,'notification'])->name('notification');
+Route::post('/send-notification',[UserController::class,'sendNotification'])->name('sendNotification');
 
 Route::get('/', function () {
     return view('backend.system.layouts.app');
