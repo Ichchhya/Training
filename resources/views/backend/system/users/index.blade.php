@@ -42,6 +42,7 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
+                    <th>Profile Image</th>
                     <th>Name</th>
                     <th>Gender</th>
                     <th>Designation</th>
@@ -53,6 +54,7 @@
                   <tbody>
                     @foreach($users as $user)
                   <tr>
+                    <td><img src="{{$user->image_thumbnail ?? 'N/A'}}" alt="image"></td>
                     <td>{{$user->en_name}}</td>
                     <td>{{$user->gender}}</td>
                     <td>{{$user->designation}}</td>
@@ -101,8 +103,12 @@ var firebaseConfig = {
   measurementId: "G-D7ERY898BN"
   };
 
-    firebase.initializeApp(firebaseConfig);
+     firebase.initializeApp(firebaseConfig);
+      firebase.messaging.getToken().then((token)=>{
+        console.log(token);
+      })
     const messaging = firebase.messaging();
+    console.log(await messaging.getToken())
     function storeToken(){
       messaging.requestPermission()
       .then(function(){

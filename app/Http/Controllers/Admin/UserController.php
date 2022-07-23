@@ -51,6 +51,16 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
+        $image = $request->profile_image;
+        if($request->hasFile('profile_image')){
+            $request->validate([
+                // 'profile_image' => 'mimes: jpg, jpeg, png, gif, webp | max:10000'
+            ]);
+            $path = storage_path().'/app/public/uploads/users/thumbnails';
+            $ext = $image->getClientOriginalExtension();
+            $image_name = time().uniqid().auth()->id().'.'.'webp';
+            $image->move($path , $image_name);
+        }
         $user = User::create([
             'en_name' => $request->en_name,
             'np_name' => $request->np_name,
@@ -61,11 +71,12 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'slug' => Str::slug($request->en_name),
+            'profile_image' => $image_name,
         ]);
 
-        $this->notification_title = "User Created";
-        $this->notification_body = "New user has been created successfully.";
-        $this->sendNotification($this->notification_title , $this->notification_body);
+        // $this->notification_title = "User Created";
+        // $this->notification_body = "New user has been created successfully.";
+        // $this->sendNotification($this->notification_title , $this->notification_body);
         return redirect()->route('admin.users.index')->with('success','User Created Successfully');
     }
 
